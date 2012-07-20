@@ -1,4 +1,3 @@
-from pprint import pprint
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.utils.datetime_safe import datetime
@@ -36,7 +35,7 @@ def update_schedule(request, iataCode=None):
     form.airport.choices = choices
     if request.method == 'POST' and form.validate():
         flights = get_schedule(form.airport.data)
-        pprint(flights)
+        
         for flight in flights:
             new_flight = {
                 'origin': Airport.objects.get(pk=flight['origin']),
