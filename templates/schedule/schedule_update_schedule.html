@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from 'macros.html' import form_fields %}
+
+{% block title %}
+    Airport Update
+{% endblock %}
+
+{% block header %}
+    <h1>Airport Update</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST" action="/schedule/update_schedule">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+        {{ form_fields(form) }}
+    </form>
+{% endblock %}

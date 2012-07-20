@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from 'macros.html' import form_fields %}
+
+{% block title %}
+    Flight Search
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript">
+        $("document").ready(function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            console.log("Initial Position Found");
+                            var url = "./local_search.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude;
+                            var nearest = nearestAirport(airports, url);
+                            if (nearest !== "") {
+                                $('#origin').val(nearest);
+                                $('#origin').selectmenu('refresh');
+                            }
+                        },
+                        function (error) {
+                            alert(error);
+                        },
+                        {
+                            timeout:(5 * 1000),
+                            maximumAge:(1000 * 60 * 15),
+                            enableHighAccuracy:false
+                        }
+                );
+            }
+        })
+
+    </script>
+{% endblock %}
+
+{% block header %}
+    <h1>Flight Search</h1>
+{% endblock %}
+
+{% block content %}
+    {{ form_fields(form) }}
+{% endblock %}

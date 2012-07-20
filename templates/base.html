@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="">
+<head>
+    <title>{% block title %}{% endblock %} ~ Router</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/favicon.ico"/>
+    {% if debug == False %}
+        <link rel="stylesheet" href="/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/jquery.mobile-1.1.1/jqm-datebox.min.css"/>
+
+        <script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" src="/static/jquery.mobile-1.1.1/jqm-datebox-1.1.0.comp.calbox.js"></script>
+        <script type="text/javascript" src="/static/jquery.mobile-1.1.1/jqm-datebox-1.1.0.comp.calbox.min.js"></script>
+        <style type="text/css">
+            #searchList .ui-btn-inner {
+                text-align: center;
+                margin: 0 auto;
+            }
+        </style>
+    {% endif %}
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+<div data-role="page" id="page1">
+    <div data-role="header">
+        {% block header %}
+        {% endblock %}
+    </div>
+    {% if debug == True %}
+        <div style="text-align: center">
+            debug mode
+        </div>
+    {% endif %}
+    <div id="content" data-role="content" data-theme="b" style="padding: 15px">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        <div data-theme="a" data-role="footer" data-position="fixed">
+            <h5>
+                Copyright © 2012 Chris Bandy, Licensed under the <a href="http://www.opensource.org/licenses/CDDL-1.0/">Common
+                Development and Distribution License (CDDL-1.0)</a>
+            </h5>
+        </div>
+
+    </footer>
+</div>
+</body>
+</html>

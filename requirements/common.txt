@@ -1,0 +1,10 @@
+# requirements/common.txt
+Django==1.4
+Jinja2==2.6
+WTForms==1.0.1
+django-jinja-middleware==1.0.3
+django-social-auth==0.7.0
+lxml==2.3.4
+oauth2==1.5.211
+python-openid==2.2.5
+psycopg2==2.4.5
