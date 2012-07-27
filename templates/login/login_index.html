@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="https://browserid.org/include.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block header %}<h1>Login</h1>{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Login</h3>
+        <ul>
+            {% for name in social_auth.backends.oauth %}
+                {% if 'twitter' in name %}
+                    <a class='zocial icon twitter' style='color: white' rel="nofollow"
+                       href="{{ url_for('socialauth_begin', args=[name]) }}">Sign in with Twitter</a>
+                {% elif 'linkedin' in name %}
+                    <a class='zocial icon linkedin' style='color: white' rel="nofollow"
+                       href="{{ url_for('socialauth_begin', args=[name]) }}">Sign in with LinkedIn</a>
+                {% elif 'yahoo' in name %}
+                    <a class='zocial icon yahoo' style='color: white' rel="nofollow"
+                       href="{{ url_for('socialauth_begin', args=[name]) }}">Sign in with Yahoo</a>
+                {% else %}
+                    <a rel="nofollow" href="{{ url_for('socialauth_begin', args=[name]) }}">{{ name|title }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% for name in social_auth.backends.oauth2 %}
+                {% if 'google' in name %}
+                    <a class='zocial icon google' style='color: white' rel="nofollow"
+                       href="{{ url_for('socialauth_begin', args=[name]) }}">Sign in with Google</a>
+                {% elif 'facebook' in name %}
+                    <a class='zocial icon facebook' style='color: white' rel="nofollow"
+                       href="{{ url_for('socialauth_begin', args=[name]) }}">Sign in with Facebook</a>
+                {% elif 'live' in name %}
+                    <a class='zocial icon windows' style='color: white' rel="nofollow"
+                       href="{{ url_for('socialauth_begin', args=[name]) }}">Sign in with Live</a>
+                {% else %}
+                    <a rel="nofollow" href="{{ url_for('socialauth_begin', args=[name]) }}">{{ name|title }}</a>
+                {% endif %}
+            {% endfor %}
+
+            <form method="post" action="{{ url_for('socialauth_begin', args=['browserid']) }}">
+                <input type="hidden" name="assertion" value=""/>
+                <a rel="nofollow" id="browserid" href="#"><img src="/static/images/browserid_orange.png"></a>
+                using <a href="https://browserid.org/" title="BrowserID">BrowserID</a>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#browserid').click(function (e) {
+                            e.preventDefault();
+                            var self = $(this);
+
+                            navigator.id.get(function (assertion) {
+                                if (assertion) {
+                                    self.parent('form')
+                                            .find('input[type=hidden]')
+                                            .attr('value', assertion)
+                                            .end()
+                                            .submit();
+                                } else {
+                                    alert('Some error occurred');
+                                }
+                            });
+                        });
+                    });
+                </script>
+            </form>
+        </ul>
+    </div>
+{% endblock %}
